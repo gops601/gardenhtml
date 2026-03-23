@@ -25,7 +25,7 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v6
         with:
           args: >
-            -Dsonar.projectKey=${{ github.repository }}
+            -Dsonar.projectKey=gops601_gardenhtml
             -Dsonar.sources=.
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
