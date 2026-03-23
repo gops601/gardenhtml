@@ -8,14 +8,26 @@ on:
 
 jobs:
   sonar:
-    runs-on: self-hosted
+    runs-on: self-hosted   # important for localhost SonarQube
 
     steps:
 
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Sonar Scan
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
+        with:
+          scannerVersion: 5.0.1.3006   # older version → avoids zip error in Windows
+          args: >
+            -Dsonar.projectKey=${{ github.repository }}
+            -Dsonar.sources=.
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: http://localhost:9000
