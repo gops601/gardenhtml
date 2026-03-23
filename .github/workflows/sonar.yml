@@ -8,11 +8,11 @@ on:
 
 jobs:
   sonar:
-    runs-on: self-hosted   # important for localhost SonarQube
+    runs-on: self-hosted
 
     steps:
 
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Java
@@ -24,7 +24,6 @@ jobs:
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         with:
-          scannerVersion: 5.0.1.3006   # older version → avoids zip error in Windows
           args: >
             -Dsonar.projectKey=${{ github.repository }}
             -Dsonar.sources=.
